@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#05070b" />
+  <meta name="description" content="ZERO TRACE — لعبة ألغاز ومحاكاة اختراق أخلاقي سايبربانك متعددة المراحل." />
+  <title>ZERO TRACE — لعبة المحارب السيبراني</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+  <main id="app">
+    <section id="boot-screen" class="screen boot-screen active" aria-labelledby="game-title">
+      <div class="boot-noise" aria-hidden="true"></div>
+      <div class="brand-mark" aria-hidden="true"><span></span><i></i></div>
+      <p class="eyebrow">BELMO LABS // SECURE SIMULATION</p>
+      <h1 id="game-title"><span>ZERO</span> TRACE</h1>
+      <p class="boot-copy">ادخل الشبكة. اكسر الشفرة. اخرج قبل أن يكتشفك النظام.</p>
+      <div class="boot-status"><span></span><b id="boot-line">جاري تهيئة الاتصال الآمن…</b></div>
+      <button id="start-btn" class="primary-btn" type="button">ابدأ العملية <span>↗</span></button>
+      <p class="ethics-note">محاكاة خيالية للتعلّم والترفيه — لا تتضمن أدوات اختراق حقيقية</p>
+    </section>
+
+    <section id="hq-screen" class="screen hq-screen" aria-labelledby="hq-title">
+      <header class="topbar">
+        <button class="brand-button" id="brand-home" type="button" aria-label="العودة للمقر">
+          <span class="mini-mark" aria-hidden="true"></span>
+          <strong>ZERO//TRACE</strong>
+        </button>
+        <div class="operator-badge"><span class="status-dot"></span><small>العميل</small><b id="operator-rank">مبتدئ</b></div>
+        <div class="resource"><small>الرصيد</small><b><span id="credits">0</span> ¢</b></div>
+        <div class="resource"><small>الخبرة</small><b><span id="xp">0</span> XP</b></div>
+        <button id="sound-btn" class="icon-btn" type="button" aria-label="تشغيل أو كتم الصوت">◉</button>
+      </header>
+
+      <div class="hq-grid">
+        <aside class="sidebar">
+          <div>
+            <p class="eyebrow">قاعدة العمليات</p>
+            <h2 id="hq-title">لوحة العميل</h2>
+          </div>
+          <nav aria-label="أقسام اللعبة">
+            <button class="nav-btn active" data-view="missions" type="button"><span>⌁</span> المهمات</button>
+            <button class="nav-btn" data-view="upgrades" type="button"><span>◇</span> الترقيات</button>
+            <button class="nav-btn" data-view="intel" type="button"><span>◎</span> ملف القضية</button>
+          </nav>
+          <div class="campaign-progress">
+            <div><span>تقدّم الحملة</span><b id="campaign-percent">0%</b></div>
+            <div class="bar"><i id="campaign-bar"></i></div>
+            <small><span id="completed-count">0</span> / 20 مهمة</small>
+          </div>
+          <button id="reset-btn" class="text-btn danger" type="button">إعادة ضبط التقدم</button>
+        </aside>
+
+        <section class="workspace">
+          <div id="missions-view" class="view active">
+            <div class="section-heading">
+              <div><p class="eyebrow">شبكة العمليات</p><h2>اختر مهمتك</h2></div>
+              <div class="legend"><span><i class="ready"></i> متاحة</span><span><i class="done"></i> مكتملة</span><span><i class="locked"></i> مقفلة</span></div>
+            </div>
+            <div id="chapter-tabs" class="chapter-tabs" role="tablist"></div>
+            <div id="mission-grid" class="mission-grid"></div>
+          </div>
+
+          <div id="upgrades-view" class="view">
+            <div class="section-heading"><div><p class="eyebrow">مختبر المعدات</p><h2>طوّر تجهيزاتك</h2></div></div>
+            <div id="upgrade-grid" class="upgrade-grid"></div>
+          </div>
+
+          <div id="intel-view" class="view">
+            <div class="section-heading"><div><p class="eyebrow">ملف سري // 7A</p><h2>عملية الشبح الزجاجي</h2></div></div>
+            <article class="intel-file">
+              <div class="redacted-stamp">سري للغاية</div>
+              <p>ظهرت داخل البنية الرقمية لمدينة <b>نوفا</b> شبكة ذكاء اصطناعي منشقة تُعرف باسم <b>MIRROR</b>. مهمتك تتبع أثرها عبر أربع مناطق، استعادة الملفات المسروقة، ومنعها من السيطرة على شبكة المدينة.</p>
+              <div class="intel-facts">
+                <div><small>الهدف</small><b>MIRROR.AI</b></div>
+                <div><small>التهديد</small><b>حرج</b></div>
+                <div><small>الموقع</small><b>NOVA GRID</b></div>
+              </div>
+              <p class="intel-warning">كل مهمة تدريبية وخيالية. الأوامر والأنظمة داخل اللعبة مصممة للترفيه ولا تعمل خارجها.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="mission-screen" class="screen mission-screen" aria-labelledby="mission-title">
+      <header class="mission-header">
+        <button id="abort-btn" class="icon-btn back-btn" type="button" aria-label="إنهاء المهمة">×</button>
+        <div class="mission-identity"><small id="mission-code">OP-01</small><h2 id="mission-title">اسم المهمة</h2></div>
+        <div class="trace-wrap">
+          <div class="trace-meta"><span>نسبة الكشف</span><b id="trace-value">0%</b></div>
+          <div class="trace-bar"><i id="trace-bar"></i></div>
+        </div>
+        <div class="timer"><small>الوقت</small><b id="timer-value">02:00</b></div>
+      </header>
+
+      <div class="mission-body">
+        <aside class="objective-panel">
+          <p class="eyebrow">الهدف الحالي</p>
+          <h3 id="objective-title">اختراق البوابة</h3>
+          <p id="objective-text"></p>
+          <div class="mission-stats">
+            <div><span>الصعوبة</span><b id="mission-difficulty"></b></div>
+            <div><span>المكافأة</span><b id="mission-reward"></b></div>
+          </div>
+          <div class="signal-box"><span>إشارة الاتصال</span><div><i></i><i></i><i></i><i></i></div></div>
+          <button id="hint-btn" class="secondary-btn" type="button">استخدام تلميح <small>−25¢</small></button>
+          <p id="hint-text" class="hint-text" aria-live="polite"></p>
+        </aside>
+
+        <section class="puzzle-stage">
+          <div class="stage-chrome"><span>SECURE NODE // LIVE</span><div><i></i><i></i><i></i></div></div>
+          <div id="puzzle-area" class="puzzle-area"></div>
+          <p id="puzzle-feedback" class="puzzle-feedback" aria-live="assertive"></p>
+        </section>
+
+        <aside class="event-log">
+          <p class="eyebrow">سجل النظام</p>
+          <div id="log-lines" class="log-lines" aria-live="polite"></div>
+        </aside>
+      </div>
+    </section>
+
+    <div id="result-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="result-title">
+      <div class="modal-card">
+        <div id="result-icon" class="result-icon">✓</div>
+        <p id="result-kicker" class="eyebrow">MISSION COMPLETE</p>
+        <h2 id="result-title">تمت المهمة</h2>
+        <p id="result-copy"></p>
+        <div id="result-rewards" class="result-rewards"></div>
+        <div class="modal-actions">
+          <button id="result-home" class="secondary-btn" type="button">المقر الرئيسي</button>
+          <button id="result-next" class="primary-btn" type="button">المهمة التالية</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <div class="modal-card compact">
+        <h2 id="confirm-title">إعادة ضبط التقدم؟</h2>
+        <p>سيتم حذف الرصيد والترقيات وكل المراحل المكتملة على هذا الجهاز.</p>
+        <div class="modal-actions">
+          <button id="cancel-reset" class="secondary-btn" type="button">إلغاء</button>
+          <button id="confirm-reset" class="primary-btn danger-btn" type="button">حذف التقدم</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
